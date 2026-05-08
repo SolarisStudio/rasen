@@ -1,0 +1,113 @@
+# depslib dependency file v1.0
+1778278258 source:c:\users\client\documents\projects\rui\rui\main.cpp
+	<iostream>
+	<Application.h>
+	<Window.h>
+	<Button.h>
+	<CheckBox.h>
+
+1778277860 source:c:\users\client\documents\projects\rui\rui\src\widget.cpp
+	"Widget.h"
+
+1778277581 c:\users\client\documents\projects\rui\rui\include\widget.h
+	<DrawUtils.h>
+	<UIConstants.h>
+	<functional>
+
+1776963452 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\raylib.h
+	<stdarg.h>
+	<stdbool.h>
+
+1417974488 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\stdarg.h
+	<_mingw_stdarg.h>
+
+1417974488 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\_mingw_stdarg.h
+	<vadefs.h>
+
+1417974488 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\vadefs.h
+	<_mingw.h>
+
+1417974482 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\_mingw.h
+	"_mingw_mac.h"
+	"_mingw_secapi.h"
+	"_cygwin.h"
+	<vadefs.h>
+	"sdks/_mingw_directx.h"
+	"sdks/_mingw_ddk.h"
+
+1417974488 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\_mingw_mac.h
+
+1417974488 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\_mingw_secapi.h
+
+1417974488 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\_cygwin.h
+	<stddef.h>
+
+1417974488 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\stddef.h
+	<crtdefs.h>
+
+1417974488 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\crtdefs.h
+	<_mingw.h>
+
+1417974492 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\sdks\_mingw_directx.h
+
+1417974492 c:\program files (x86)\dev-cpp\mingw64\x86_64-w64-mingw32\include\sdks\_mingw_ddk.h
+
+1778268465 source:c:\users\client\documents\projects\rui\rui\src\window.cpp
+	<memory>
+	"Application.h"
+	"Window.h"
+	<iostream>
+
+1778277674 c:\users\client\documents\projects\rui\rui\include\window.h
+	<Container.h>
+	<memory>
+	<string>
+
+1778265998 source:c:\users\client\documents\projects\rui\rui\src\container.cpp
+	"Container.h"
+	<iostream>
+
+1778277782 c:\users\client\documents\projects\rui\rui\include\container.h
+	<Widget.h>
+	<vector>
+	<memory>
+
+1778262686 source:c:\users\client\documents\projects\rui\rui\src\application.cpp
+	"Application.h"
+
+1778277598 c:\users\client\documents\projects\rui\rui\include\application.h
+	<Window.h>
+	<vector>
+
+1778277861 source:c:\users\client\documents\projects\rui\rui\src\button.cpp
+	"Button.h"
+
+1778277776 c:\users\client\documents\projects\rui\rui\include\button.h
+	<Event.h>
+	<string>
+	<memory>
+
+1778279005 c:\users\client\documents\projects\rui\rui\include\drawutils.h
+	<raylib.h>
+
+1778277815 c:\users\client\documents\projects\rui\rui\include\event.h
+	<Container.h>
+	<functional>
+
+1778273171 c:\users\client\documents\projects\rui\rui\include\eventreceiver.h
+	<Event.h>
+
+1778273182 source:c:\users\client\documents\projects\rui\rui\src\eventreceiver.cpp
+	"EventReceiver.h"
+
+1778278617 c:\users\client\documents\projects\rui\rui\include\uiconstants.h
+
+1778280613 source:c:\users\client\documents\projects\rui\rui\src\checkbox.cpp
+	<CheckBox.h>
+	<iostream>
+
+1778278830 c:\users\client\documents\projects\rui\rui\include\checkbox.h
+	<UIConstants.h>
+	<Event.h>
+	<string>
+
