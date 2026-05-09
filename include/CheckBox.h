@@ -4,20 +4,23 @@
 #include <UIConstants.h>
 #include <Event.h>
 
-
 #include <string>
 
 class CheckBox : public EventWidget<CheckBox> {
 public:
     CheckBox():
         m_checked(false),
-        m_label{"Hello"}
+        m_label{""}
         {}
 
     ~CheckBox() {}
 
     static std::unique_ptr<CheckBox> construct();
 
+    void set_text(const char*);
+    void set_text(std::string&);
+
+    std::string text();
 
     void update(float dt) override;
     void draw() override;
