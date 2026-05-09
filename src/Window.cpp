@@ -12,6 +12,7 @@ std::unique_ptr<Window> Window::construct() {
 }
 
 void Window::update([[maybe_unused]] float dt) {
+
     for (Widget* child: children()) {
         child->update(dt);
     }
@@ -19,13 +20,22 @@ void Window::update([[maybe_unused]] float dt) {
 
 void Window::draw() {
 
-    std::cout << "Debug: " << std::endl;
+    auto flag = (int)FLAG_MSAA_4X_HINT;
+    if (m_resizable) {
+        flag |= (int)FLAG_WINDOW_RESIZABLE;
+    }
+
+    SetConfigFlags(flag);
+
     auto window_size = this->get_size();
     InitWindow(window_size.x, window_size.y, m_title.c_str());
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
         auto dt = GetFrameTime();
+        auto w = GetScreenWidth();
+        auto h = GetScreenHeight();
+        this->set_size(w, h);
         Container::update(dt);
         BeginDrawing();
             Container::draw();
