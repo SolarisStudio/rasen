@@ -26,10 +26,6 @@ std::vector<Widget*> Container::children() {
     return m_children;
 };
 
-void Container::add(Widget* child) {
-    child->set_parent(this);
-    m_children.push_back(child);
-};
 
 Color Container::background_color() {
     return m_color;

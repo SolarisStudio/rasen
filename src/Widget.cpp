@@ -24,6 +24,14 @@ unsigned int Widget::height() {
     return (unsigned int)m_rect.height;
 }
 
+unsigned int Widget::x() {
+    return (unsigned int)m_rect.x;
+}
+
+unsigned int Widget::y() {
+    return (unsigned int)m_rect.y;
+}
+
 Vector2 Widget::location() {
     return Vector2{m_rect.x, m_rect.y};
 }
