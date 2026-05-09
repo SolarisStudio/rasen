@@ -33,6 +33,12 @@ using HoverEvent = std::function<void(Event<W>&)>;
 template <typename W>
 using CheckEvent = std::function<void(Event<W>&)>;
 
+template <typename W>
+using DragEvent = std::function<void(Event<W>&)>;
+
+template <typename W>
+using DropEvent = std::function<void(Event<W>&)>;
+
 template <typename TypeWidget>
 class EventWidget : public Widget {
 public:
@@ -45,10 +51,18 @@ public:
     void on_check(CheckEvent<TypeWidget> e) { m_on_check = e; }
     CheckEvent<TypeWidget> on_check() { return m_on_check; }
 
+    void on_drag(DragEvent<TypeWidget> e) { m_on_drag = e; }
+    DragEvent<TypeWidget> on_drag() { return m_on_drag; }
+
+    void on_drop(DragEvent<TypeWidget> e) { m_on_drop = e; }
+    DragEvent<TypeWidget> on_drop() { return m_on_drop; }
+
 private:
     ClickEvent<TypeWidget> m_on_click = nullptr;
     HoverEvent<TypeWidget> m_on_hover = nullptr;
     CheckEvent<TypeWidget> m_on_check = nullptr;
+    DragEvent<TypeWidget> m_on_drag = nullptr;
+    DropEvent<TypeWidget> m_on_drop = nullptr;
 };
 
 
