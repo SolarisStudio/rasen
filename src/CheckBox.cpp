@@ -1,5 +1,4 @@
-#include <CheckBox.h>
-#include <iostream>
+#include "CheckBox.h"
 
 void CheckBox::update(float dt) {
     Vector2 textSize = MeasureTextEx(GetFontDefault(), m_label.c_str(), UIConstants::FONT_SIZE, this->spacing());
@@ -51,10 +50,18 @@ void CheckBox::draw() {
 
 
     static int event_count = 1;
+    auto mouse_pos = GetMousePosition();
     if (m_hovered && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+
+        auto check = this->on_check();
         if (event_count > 0) {
-            std::cout << this->m_checked << std::endl;
             this->m_checked = !this->m_checked;
+            Event<CheckBox> e(mouse_pos, this, this->m_checked);
+            if (check != nullptr ) {
+                check(e);
+                event_count--;
+            }
+
             event_count--;
         }
     }
