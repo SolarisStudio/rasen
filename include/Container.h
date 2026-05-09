@@ -12,7 +12,6 @@ class Container : public Widget {
         std::vector<Widget*> children();
         Color background_color();
 
-        void add(Widget*);
         void set_background_color(Color&);
 
         void update(float dt) override;
@@ -20,6 +19,17 @@ class Container : public Widget {
 
         static const Color DEFAULT_BACKGROUND_COLOR;
 
+
+        template<typename T>
+        void add(std::unique_ptr<T>& child) {
+            if (!child) return;
+
+            T* child_widget = child.get();
+
+            child->set_parent(this);
+
+            m_children.push_back(static_cast<Widget*>(child_widget));
+        }
     protected:
 
     private:
