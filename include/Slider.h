@@ -13,6 +13,7 @@ public:
     ~Slider() {}
 
     static std::unique_ptr<Slider> construct();
+    WIDGET_CONSTRUCT(Slider);
 
     void update(float dt) override;
     void draw() override;

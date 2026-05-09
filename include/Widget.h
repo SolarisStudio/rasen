@@ -58,4 +58,11 @@ class Widget {
         Widget* m_parent;
 };
 
+#define WIDGET_CONSTRUCT(Type) \
+template<typename TypeWidget>\
+static std::unique_ptr<Type> construct(std::unique_ptr<TypeWidget>& parent) {\
+    auto widget = std::make_unique<Type>();\
+    parent->add(widget);\
+    return widget;\
+}
 
