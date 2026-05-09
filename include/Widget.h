@@ -24,6 +24,8 @@ class Widget {
         unsigned int margin();
         unsigned int width();
         unsigned int height();
+        unsigned int x();
+        unsigned int y();
         Widget* parent();
 
         // Setters
