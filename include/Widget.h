@@ -59,6 +59,13 @@ class Widget {
 };
 
 #define WIDGET_CONSTRUCT(Type) \
+std::unique_ptr<Type> construct() {\
+    auto widget = std::make_unique<Type>();\
+    return widget;\
+}
+
+
+#define WIDGET_CONSTRUCT_PARENT(Type) \
 template<typename TypeWidget>\
 static std::unique_ptr<Type> construct(std::unique_ptr<TypeWidget>& parent) {\
     auto widget = std::make_unique<Type>();\

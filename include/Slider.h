@@ -12,8 +12,8 @@ public:
         m_value(50) {}
     ~Slider() {}
 
-    static std::unique_ptr<Slider> construct();
     WIDGET_CONSTRUCT(Slider);
+    WIDGET_CONSTRUCT_PARENT(Slider);
 
     void update(float dt) override;
     void draw() override;

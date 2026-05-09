@@ -18,8 +18,8 @@ class Button : public EventWidget<Button> {
         void set_text(std::string&);
         std::string text();
 
-        static std::unique_ptr<Button> construct();
         WIDGET_CONSTRUCT(Button);
+        WIDGET_CONSTRUCT_PARENT(Button);
 
 
     protected:

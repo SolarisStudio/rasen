@@ -15,8 +15,8 @@ public:
 
     ~CheckBox() {}
 
-    static std::unique_ptr<CheckBox> construct();
     WIDGET_CONSTRUCT(CheckBox);
+    WIDGET_CONSTRUCT_PARENT(CheckBox);
 
     void set_text(const char*);
     void set_text(std::string&);
