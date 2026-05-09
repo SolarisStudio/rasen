@@ -80,11 +80,6 @@ void CheckBox::draw() {
 
 };
 
-std::unique_ptr<CheckBox> CheckBox::construct() {
-    auto checkbox = std::make_unique<CheckBox>();
-    return checkbox;
-}
-
 
 void CheckBox::set_text(const char* text) {
     this->m_label = std::string(text);

@@ -1,10 +1,6 @@
 #include <Slider.h>
 #include <iostream>
 
-std::unique_ptr<Slider> Slider::construct() {
-    auto slider = std::make_unique<Slider>();
-    return slider;
-};
 
 void Slider::update(float dt) {
     auto parent = static_cast<Container*>(this->parent());

@@ -64,11 +64,6 @@ void Button::draw() {
 }
 
 
-std::unique_ptr<Button> Button::construct() {
-    auto btn = std::make_unique<Button>();
-    return btn;
-}
-
 void Button::set_text(const char* text) {
     m_text = std::string(text);
 }
