@@ -61,16 +61,3 @@ void Button::draw() {
 
     DrawTextEx(GetFontDefault(), m_text.c_str(), text_location, font_size, spacing, text_color);
 }
-
-
-void Button::set_text(const char* text) {
-    m_text = std::string(text);
-}
-
-void Button::set_text(std::string& text) {
-    m_text = text;
-}
-
-std::string Button::text() {
-    return m_text;
-}

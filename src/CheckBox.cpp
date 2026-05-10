@@ -1,7 +1,7 @@
 #include "CheckBox.h"
 
 void CheckBox::update(float dt) {
-    Vector2 textSize = MeasureTextEx(GetFontDefault(), m_label.c_str(), UIConstants::FONT_SIZE, this->spacing());
+    Vector2 textSize = MeasureTextEx(GetFontDefault(), m_text.c_str(), UIConstants::FONT_SIZE, this->spacing());
     auto width = textSize.x + (UIConstants::PADDING_X * 2) + UIConstants::CHECKBOX_RADIUS * 2;
     auto height = textSize.y + (UIConstants::PADDING_Y * 2);
     this->set_size(width, height);
@@ -80,21 +80,8 @@ void CheckBox::draw() {
     }
 
     auto font_size = UIConstants::FONT_SIZE;
-    DrawTextEx(GetFontDefault(), m_label.c_str(), text_location, font_size, spacing, BLACK);
+    DrawTextEx(GetFontDefault(), m_text.c_str(), text_location, font_size, spacing, BLACK);
 
 
 };
-
-
-void CheckBox::set_text(const char* text) {
-    this->m_label = std::string(text);
-}
-
-void CheckBox::set_text(std::string& text) {
-    this->m_label = text;
-}
-
-std::string CheckBox::text() {
-    return this->m_label;
-}
 
