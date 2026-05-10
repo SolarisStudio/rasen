@@ -17,6 +17,9 @@ Eg:
 
 RAYLIB_HOME=$HOME/.local/
 
+# Natively on Windows using mingw compilers etc
+%RAYLIB_HOME%=C:/path/to/raylib/
+
 ```
 
 Our build script will then infere the `include` and `lib` directories.
