@@ -1,7 +1,6 @@
 #include "Button.h"
 
 void Button::update(float) {
-
     if (m_text.length() == 0) {
         this->set_text(" ");
     }
@@ -52,7 +51,7 @@ void Button::draw() {
 
     auto text_color = BLACK;
     if (m_hovered) {
-        DrawRectangleLinesEx(rect, 1, ColorBrightness(color, -0.7f));
+        DrawRectangleLinesEx(rect, 1, UIConstants::HIGHLIGHT_COLOR);
         text_color = ColorBrightness(text_color, 0.25f);
         auto hover = this->on_hover();
         if (hover != nullptr) {

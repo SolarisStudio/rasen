@@ -26,10 +26,6 @@ void CheckBox::update(float dt) {
     int diff_x = rect2.x - rect.x;
     rect2.width -= diff_x ;
 
-
-    auto mouse_pos = GetMousePosition();
-    m_hovered = CheckCollisionPointCircle(mouse_pos, check_box_center, UIConstants::CHECKBOX_RADIUS) ||
-                CheckCollisionPointRec(mouse_pos, rect2);
 };
 
 void CheckBox::draw() {
@@ -46,11 +42,20 @@ void CheckBox::draw() {
         text_location.y + spacing * 2
     };
 
+    // DrawUtils::DrawRectangleLinesInset(rect, 2, RED);
     DrawUtils::DrawCircleInset(check_box_center, UIConstants::CHECKBOX_RADIUS, 3.0f, LIGHTGRAY);
 
+    auto rect2 = Rectangle{
+                    text_location.x, rect.y,
+                    this->width() - UIConstants::CHECKBOX_RADIUS * 2 , this->height()
+                };
 
     static int event_count = 1;
     auto mouse_pos = GetMousePosition();
+    m_hovered = CheckCollisionPointCircle(mouse_pos, check_box_center, UIConstants::CHECKBOX_RADIUS) ||
+                CheckCollisionPointRec(mouse_pos, rect2);
+
+
     if (m_hovered && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 
         auto check = this->on_check();
@@ -92,3 +97,4 @@ void CheckBox::set_text(std::string& text) {
 std::string CheckBox::text() {
     return this->m_label;
 }
+

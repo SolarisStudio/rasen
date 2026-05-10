@@ -3,6 +3,7 @@
 #include <DrawUtils.h>
 #include <UIConstants.h>
 #include <functional>
+#include <memory>
 
 class Widget {
     public:

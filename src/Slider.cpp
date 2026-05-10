@@ -5,48 +5,8 @@
 void Slider::update(float dt) {
     auto parent = static_cast<Container*>(this->parent());
     auto spacing = this->spacing();
-
-
-    auto width_diff = parent->width() - this->x();
-    this->set_size(width_diff - spacing * 2, 25);
-
-    auto rect = this->bounding_rect();
-    auto track_rect = Rectangle {rect.x + spacing, rect.y + (rect.height / 2), rect.width - spacing * 2, 5};
-
-
-    auto mouse_pos = GetMousePosition();
-
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        if (CheckCollisionPointRec(mouse_pos, rect)) {
-            m_is_dragging = true;
-        }
-    }
-
-    Event<Slider> e(mouse_pos, this);
-
-    if (m_is_dragging) {
-        if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-            if (m_is_dragging) {
-                auto drop = this->on_drop();
-                if (drop != nullptr) {
-                    drop(e);
-                }
-            }
-            m_is_dragging = false;
-        } else {
-            float relative_x = mouse_pos.x - track_rect.x;
-            float percentage = relative_x / track_rect.width;
-
-            percentage = (percentage < 0) ? 0 : (percentage > 1 ? 1 : percentage);
-
-            m_value = m_min_value + percentage * (m_max_value - m_min_value);
-
-            auto drag = this->on_drag();
-            if (drag != nullptr) {
-                drag(e);
-            }
-        }
-    }
+    // auto width_diff = parent->width() - this->x();
+    this->set_size(this->width(), 25);
 }
 
 float Slider::get_knob_x(const Rectangle& track_rect) {
@@ -63,6 +23,7 @@ void Slider::draw() {
     auto height_diff = (rect.y + rect.height) - rect.y - spacing;
     auto track_rect = Rectangle {rect.x + spacing, rect.y + height_diff / 2, rect.width - spacing * 2, 5};
     float track_y = track_rect.y;
+    // DrawUtils::DrawRectangleLinesInset(rect, 2, GRAY);
     DrawUtils::DrawRectangleInset(track_rect, 3, GetColor(0x999999FF));
 
     auto track_item_rect = Rectangle {
@@ -97,6 +58,40 @@ void Slider::draw() {
     Vector2 v3 = { knob_x, track_y + 2 };                            // Bottom Tip (near track)
 
     DrawUtils::DrawTriangleFilledOutset(v1, v2, v3, 2.0f, BLACK);
+
+    auto mouse_pos = GetMousePosition();
+
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        if (CheckCollisionPointRec(mouse_pos, rect)) {
+            m_is_dragging = true;
+        }
+    }
+
+    Event<Slider> e(mouse_pos, this);
+
+    if (m_is_dragging) {
+        if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+            if (m_is_dragging) {
+                auto drop = this->on_drop();
+                if (drop != nullptr) {
+                    drop(e);
+                }
+            }
+            m_is_dragging = false;
+        } else {
+            float relative_x = mouse_pos.x - track_rect.x;
+            float percentage = relative_x / track_rect.width;
+
+            percentage = (percentage < 0) ? 0 : (percentage > 1 ? 1 : percentage);
+
+            m_value = m_min_value + percentage * (m_max_value - m_min_value);
+
+            auto drag = this->on_drag();
+            if (drag != nullptr) {
+                drag(e);
+            }
+        }
+    }
 };
 
 void Slider::set_value(float value) {

@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Window.h"
 
-#include <iostream>
 
 std::unique_ptr<Window> Window::construct() {
     auto window = std::make_unique<Window>();

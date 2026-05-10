@@ -1,5 +1,4 @@
-#ifndef _CHECKBOX_H_
-#define _CHECKBOX_H_
+#pragma once
 
 #include <UIConstants.h>
 #include <Event.h>
@@ -32,4 +31,4 @@ private:
     bool m_hovered = false;
 };
 
-#endif // _CHECKBOX_H_
+

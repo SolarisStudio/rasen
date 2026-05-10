@@ -39,6 +39,10 @@ using DragEvent = std::function<void(Event<W>&)>;
 template <typename W>
 using DropEvent = std::function<void(Event<W>&)>;
 
+template <typename W>
+using SelectEvent = std::function<void(Event<W>&)>;
+
+
 template <typename TypeWidget>
 class EventWidget : public Widget {
 public:
@@ -57,12 +61,16 @@ public:
     void on_drop(DragEvent<TypeWidget> e) { m_on_drop = e; }
     DragEvent<TypeWidget> on_drop() { return m_on_drop; }
 
+    void on_select(SelectEvent<TypeWidget> e) { m_on_select = e; }
+    SelectEvent<TypeWidget> on_select() { return m_on_select; }
+
 private:
     ClickEvent<TypeWidget> m_on_click = nullptr;
     HoverEvent<TypeWidget> m_on_hover = nullptr;
     CheckEvent<TypeWidget> m_on_check = nullptr;
     DragEvent<TypeWidget> m_on_drag = nullptr;
     DropEvent<TypeWidget> m_on_drop = nullptr;
+    SelectEvent<TypeWidget> m_on_select = nullptr;
 };
 
 
