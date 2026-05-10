@@ -74,3 +74,8 @@ static std::unique_ptr<Type> construct(std::unique_ptr<TypeWidget>& parent) {\
     return widget;\
 }
 
+#define WIDGET_ALLOWS_TEXT \
+void set_text(const char* value) { m_text = std::string(value); }\
+void set_text(std::string& value) { m_text = value; }\
+std::string text() { return m_text; }
+

@@ -9,24 +9,20 @@ class CheckBox : public EventWidget<CheckBox> {
 public:
     CheckBox():
         m_checked(false),
-        m_label{""}
+        m_text{""}
         {}
 
     ~CheckBox() {}
 
     WIDGET_CONSTRUCT(CheckBox);
     WIDGET_CONSTRUCT_PARENT(CheckBox);
-
-    void set_text(const char*);
-    void set_text(std::string&);
-
-    std::string text();
+    WIDGET_ALLOWS_TEXT;
 
     void update(float dt) override;
     void draw() override;
 
 private:
-    std::string m_label;
+    std::string m_text;
     bool m_checked;
     bool m_hovered = false;
 };

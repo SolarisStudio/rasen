@@ -10,6 +10,7 @@ class Label : public Widget {
 
         WIDGET_CONSTRUCT(Label);
         WIDGET_CONSTRUCT_PARENT(Label);
+        WIDGET_ALLOWS_TEXT;
 
         void update(float);
         void draw();

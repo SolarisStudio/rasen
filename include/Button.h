@@ -13,12 +13,10 @@ class Button : public EventWidget<Button> {
         void update(float);
         void draw();
 
-        void set_text(const char*);
-        void set_text(std::string&);
-        std::string text();
 
         WIDGET_CONSTRUCT(Button);
         WIDGET_CONSTRUCT_PARENT(Button);
+        WIDGET_ALLOWS_TEXT;
 
 
     protected:
