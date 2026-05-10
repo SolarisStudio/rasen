@@ -5,7 +5,6 @@
 #include <memory>
 
 
-
 class Button : public EventWidget<Button> {
     public:
         Button(): m_text{""} {};
