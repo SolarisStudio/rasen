@@ -30,6 +30,15 @@ class Container : public Widget {
 
             m_children.push_back(static_cast<Widget*>(child_widget));
         }
+
+        template<typename T>
+        void add(T* child) {
+            if (!child) return;
+            child->set_parent(this);
+            m_children.push_back(static_cast<Widget*>(child));
+        }
+
+        void remove_all() { m_children.clear(); }
     protected:
 
     private:

@@ -10,8 +10,8 @@ class Button : public EventWidget<Button> {
         Button(): m_text{""} {};
         ~Button() {};
 
-        void update(float);
-        void draw();
+        void update(float) override;
+        void draw() override;
 
 
         WIDGET_CONSTRUCT(Button);
