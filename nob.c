@@ -12,7 +12,7 @@ typedef struct {
 } StringList;
 
 
-#define SOURCE_FILE_COUNT 10
+#define SOURCE_FILE_COUNT 14 // Modify this when adding a new files to the list of files
 
 bool to_files(const char*[SOURCE_FILE_COUNT], StringList*, const char*, const char*);
 bool build_object_files(const char*[SOURCE_FILE_COUNT], StringList, StringList*);
@@ -22,8 +22,9 @@ bool build_example(void);
 int main(int argc, char** argv) {
   NOB_GO_REBUILD_URSELF(argc, argv);
   const char* source_file_names[SOURCE_FILE_COUNT] = {
-    "Application", "Button", "CheckBox", "ComboBox", "Container",
-    "Label", "Panel", "Slider", "Widget", "Window"
+    "Application", "Button", "CheckBox", "ComboBox", "Container", "InputDialog",
+    "Label","MessageDialog",  "Panel", "PopupDialog", "Slider", "Widget", "Window",
+    "tinyfiledialogs"
   };
 
   nob_mkdir_if_not_exists("./build");
@@ -77,12 +78,15 @@ bool build_example(void) {
 
   Nob_Cmd cmd = {0};
   nob_cmd_append(&cmd, "g++");
+  nob_cmd_append(&cmd, "-ggdb");
   nob_cmd_append(&cmd, raylib_includes);
   nob_cmd_append(&cmd, includes);
   nob_cmd_append(&cmd, "main.cpp");
   nob_cmd_append(&cmd, "-o", "main.exe");
   nob_cmd_append(&cmd, libs, "-Lbuild/");
-  nob_cmd_append(&cmd, "-lrasen", "-lraylib", "-lm", "-lwinmm", "-lgdi32", "-lopengl32");
+  nob_cmd_append(&cmd,
+    "-lrasen", "-lraylib", "-lm", "-lwinmm",
+    "-lgdi32", "-lopengl32", "-lole32", "-lcomdlg32");
 
   nob_log(NOB_INFO, "Building example");
   if (!nob_cmd_run(&cmd)) {
@@ -123,7 +127,8 @@ bool build_library(StringList object_files) {
 
   nob_cmd_append(&cmd, "-o", shared_object_name);
   nob_cmd_append(&cmd, libs);
-  nob_cmd_append(&cmd, "-lraylib", "-lm", "-lwinmm", "-lgdi32", "-lopengl32");
+  nob_cmd_append(&cmd, "-lraylib", "-lm", "-lwinmm", "-lgdi32", "-lopengl32",
+    "-lgdi32", "-lopengl32", "-lole32", "-lcomdlg32");
 
 
   nob_log(NOB_INFO, "Creating .a file [%s]", static_object_name);
