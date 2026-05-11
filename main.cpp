@@ -8,6 +8,9 @@
 #include <Panel.h>
 #include <ComboBox.h>
 #include <Label.h>
+#include <MessageDialog.h>
+#include <InputDialog.h>
+#include <PopupDialog.h>
 
 #include <Border.h>
 
@@ -20,6 +23,7 @@ int main(int argc, char** argv) {
     auto panel = Panel::construct(window);
     panel->set_border(Border::OUTSET_BEVEL);
     panel->set_layout(Layout::HORIZONTAL);
+
 
     auto btn0 = Button::construct(panel);
     btn0->set_text("Click ME");
@@ -38,19 +42,30 @@ int main(int argc, char** argv) {
     auto check_box = CheckBox::construct(panel2);
     check_box->set_text("Ayo");
 
+    int count = 0;
     auto combo_box = ComboBox::construct(panel2);
-    combo_box->add_option("Joburg");
-    combo_box->add_option("Durban");
-    combo_box->add_option("Polokwane");
-    combo_box->add_option("Cape Town");
 
-    combo_box->on_select([](auto event) {
+    btn->on_click([&count, &combo_box](auto event) {
+        auto value = TextFormat("count: %d", count++);
+        PopupDialog::show("Ayo", "Hellow");
+        combo_box->add_option((char*)value);
+    });
+
+    combo_box->on_select([&check_box](auto event) {
         auto widget = event.trigger_widget();
+        check_box->set_text(widget->selected_option().c_str());
         std::cout << widget->selected_option() << " :" <<
           widget->selected_option_index() <<  std::endl;
     });
 
     auto label = Label::construct(panel2);
+    label->set_text("Hello, world");
+
+    btn0->on_click([&label](auto event) {
+        auto result = InputDialog::show("Wanna hear a Joke", "Yes or no");
+        if (result != NULL)
+            label->set_text(result);
+    });
 
     return Application::run(argc, argv);
 }
