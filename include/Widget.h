@@ -60,7 +60,7 @@ class Widget {
 };
 
 #define WIDGET_CONSTRUCT(Type) \
-std::unique_ptr<Type> construct() {\
+static std::unique_ptr<Type> construct() {\
     auto widget = std::make_unique<Type>();\
     return widget;\
 }
@@ -72,10 +72,21 @@ static std::unique_ptr<Type> construct(std::unique_ptr<TypeWidget>& parent) {\
     auto widget = std::make_unique<Type>();\
     parent->add(widget);\
     return widget;\
+}\
+template<typename TypeWidget>\
+static std::unique_ptr<Type> construct(TypeWidget* parent) {\
+    auto widget = std::make_unique<Type>();\
+    parent->add(widget);\
+    return widget;\
 }
+
 
 #define WIDGET_ALLOWS_TEXT \
 void set_text(const char* value) { m_text = std::string(value); }\
 void set_text(std::string& value) { m_text = value; }\
 std::string text() { return m_text; }
 
+#define WIDGET_ALLOWS_TITLE \
+void set_title(const char* value) { m_title = std::string(value); }\
+void set_title(std::string& value) { m_title = value; }\
+std::string title() { return m_title; }
