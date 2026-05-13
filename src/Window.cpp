@@ -35,12 +35,13 @@ void Window::draw() {
         auto w = GetScreenWidth();
         auto h = GetScreenHeight();
         this->set_size(w, h);
+        this->m_desktop->update(dt);
         Container::update(dt);
         BeginDrawing();
+            ClearBackground(WHITE);
+            this->m_desktop->draw();
             Container::draw();
-            for (Widget* child: children()) {
-                child->draw();
-            }
+            DrawFPS(w - 100, h - 25);
         EndDrawing();
     }
 }
