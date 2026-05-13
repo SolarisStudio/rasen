@@ -133,6 +133,22 @@ void ComboBox::draw() {
 }
 
 void ComboBox::set_options(std::vector<std::string>& options) {
+    if (!m_options_initialized) {
+        m_options.clear();
+        m_options_initialized = true;
+    }
+
+    for (auto option: options) {
+        m_options.push_back(option);
+    }
+}
+
+void ComboBox::set_options(std::vector<std::string> options) {
+    if (!m_options_initialized) {
+        m_options.clear();
+        m_options_initialized = true;
+    }
+
     for (auto option: options) {
         m_options.push_back(option);
     }

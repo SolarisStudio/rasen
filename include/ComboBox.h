@@ -20,6 +20,7 @@ class ComboBox : public EventWidget<ComboBox> {
         void draw() override;
 
         void set_options(std::vector<std::string>&);
+        void set_options(std::vector<std::string>);
         void add_option(std::string&);
         void add_option(char*);
 
