@@ -64,25 +64,30 @@ int main(int argc, char** argv) {
     panel->set_border(Border::OUTSET_BEVEL);
     panel->set_layout(Layout::VERTICAL);
 
+    auto header = Label::construct(panel);
+    header->set_text("Counting app");
+
     int count = 0;
     auto btn_plus = Button::construct(panel);
-    btn0->set_text("+");
+    btn_plus->set_text("+");
 
-    auto btn_minux = Button::construct(panel1);
-    btn->set_text("-");
+    auto btn_minus = Button::construct(panel);
+    btn_minus->set_text("-");
 
-    auto label = Label::construct(panel2);
+    auto label = Label::construct(panel);
     label->set_text(TextFormat("%d", count));
 
-    plus_btn->on_click([&label, &count](auto event) {
+    btn_minus->on_click([&label, &count](auto event) {
+      count--;    
+      label->set_text(TextFormat("%d", count));
+    });
+
+    btn_plus->on_click([&label, &count](auto event) {
       count++;    
       label->set_text(TextFormat("%d", count));
     });
 
-    minux_btn->on_click([&label, &count](auto event) {
-      count--;    
-      label->set_text(TextFormat("%d", count));
-    });
+
     return Application::run(argc, argv);
 }
 ```
