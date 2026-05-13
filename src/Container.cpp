@@ -12,11 +12,6 @@ void Container::update(float dt) {
 }
 
 void Container::draw() {
-    auto container_location = this->location();
-    auto container_size = this->get_size();
-    auto draw_x = container_location.x;
-    auto draw_y = container_location.y;
-    DrawRectangle(draw_x, draw_y, container_size.x, container_size.y, m_color);
     for (auto& child: m_children) {
         child->draw();
     }
