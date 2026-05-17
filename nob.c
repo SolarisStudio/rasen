@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <time.h>
 #include "nob.h"
 
 typedef struct {
@@ -18,6 +19,7 @@ bool to_files(const char*[SOURCE_FILE_COUNT], StringList*, const char*, const ch
 bool build_object_files(const char*[SOURCE_FILE_COUNT], StringList, StringList*);
 bool build_library(StringList);
 bool build_example(void);
+bool generate_build_h();
 
 int main(int argc, char** argv) {
   NOB_GO_REBUILD_URSELF(argc, argv);
@@ -29,6 +31,10 @@ int main(int argc, char** argv) {
 
   nob_mkdir_if_not_exists("./build");
 
+  if(!generate_build_h()){
+    return 1;
+  }
+
   StringList src_files = {0};
   if (!to_files(source_file_names, &src_files, "src", "cpp")) {
     nob_log(NOB_ERROR, "Failed to make source files");
@@ -36,11 +42,6 @@ int main(int argc, char** argv) {
   }
 
   StringList object_files = {0};
-  if (!build_object_files(source_file_names, src_files, &object_files)) {
-    nob_log(NOB_ERROR, "Failed to build sources into object files");
-    return 1;
-  }
-
   if (!build_object_files(source_file_names, src_files, &object_files)) {
     nob_log(NOB_ERROR, "Failed to build sources into object files");
     return 1;
@@ -84,9 +85,14 @@ bool build_example(void) {
   nob_cmd_append(&cmd, "main.cpp");
   nob_cmd_append(&cmd, "-o", "main.exe");
   nob_cmd_append(&cmd, libs, "-Lbuild/");
+
+#if defined(_WIN32) || defined (_WIN64)
   nob_cmd_append(&cmd,
     "-lrasen", "-lraylib", "-lm", "-lwinmm",
     "-lgdi32", "-lopengl32", "-lole32", "-lcomdlg32");
+#else
+  nob_cmd_append(&cmd, "-lrasen", "-lraylib", "-lm", "-lGL", "-lpthread", "-ldl", "-lrt", "-lX11");
+#endif
 
   nob_log(NOB_INFO, "Building example");
   if (!nob_cmd_run(&cmd)) {
@@ -127,9 +133,13 @@ bool build_library(StringList object_files) {
 
   nob_cmd_append(&cmd, "-o", shared_object_name);
   nob_cmd_append(&cmd, libs);
+
+#if defined(_WIN32) || defined (_WIN64)
   nob_cmd_append(&cmd, "-lraylib", "-lm", "-lwinmm", "-lgdi32", "-lopengl32",
     "-lgdi32", "-lopengl32", "-lole32", "-lcomdlg32");
-
+#else
+  /* nob_cmd_append(&cmd, "-lraylib", "-lm", "-lGL", "-lpthread", "-ldl", "-lrt", "-lX11"); */
+#endif
 
   nob_log(NOB_INFO, "Creating .a file [%s]", static_object_name);
 
@@ -181,6 +191,9 @@ bool build_object_files(const char* names[SOURCE_FILE_COUNT], StringList source_
   for (uint64_t i = 0; i < SOURCE_FILE_COUNT; ++i) {
     Nob_Cmd cmd = {0};
     nob_cmd_append(&cmd, "g++");
+#if  !defined(_WIN32) || (_WIN64)
+      nob_cmd_append(&cmd, "-fPIC");
+#endif
     nob_cmd_append(&cmd, "-o");
     nob_cmd_append(&cmd, object_files->items[i]);
     nob_cmd_append(&cmd, "-c");
@@ -212,3 +225,40 @@ bool to_files(const char* names[SOURCE_FILE_COUNT], StringList* source_files, co
   return true;
 }
 
+bool generate_build_h(){
+  time_t t = time(NULL);
+  struct tm tm = *localtime(&t);
+  nob_mkdir_if_not_exists("./include");
+  
+  const char *path = "./include/build.h";
+  nob_log(NOB_INFO,"Generating %s", path);
+
+  FILE *f = fopen(path,"w");
+  if(f == NULL){
+    nob_log(NOB_ERROR,"Failed to open %s for writing", path);
+    return false;
+  }
+    Nob_String_Builder sb = {0};
+    nob_sb_appendf(&sb, "#ifndef __BUILD_DATE__\n\n");
+    nob_sb_appendf(&sb, "#define __BUILD_DATE__ \"%d-%02d-%02d %02d:%02d:%02d\"\n",
+	tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+
+    char* os = NULL;
+#if defined(__linux__) || defined(__unix__)
+    char* user = getenv("USER");
+    os = "Linux/Unix";
+#elif defined(_WIN32) || defined(_WIN64)
+    os = "Windows";
+#endif
+
+  nob_sb_appendf(&sb, "#define __BUILD_BY__ \"%s\"\n", user);
+  nob_sb_appendf(&sb, "#define __BUILD_OS__ \"%s\"\n", os);
+
+  nob_sb_appendf(&sb,"\n#endif // RASEN_BUILD_H\n");
+  fwrite(sb.items,1,sb.count,f);
+
+  nob_da_free(sb);
+  fclose(f);
+  nob_log(NOB_INFO,"Successfully generated %s", path);
+  return true;
+}
