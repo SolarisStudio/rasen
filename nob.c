@@ -244,17 +244,19 @@ bool generate_build_h(){
 	tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
     char* os = NULL;
+    char* user = "UNKNOWN";
 #if defined(__linux__) || defined(__unix__)
-    char* user = getenv("USER");
     os = "Linux/Unix";
+    user = getenv("USER");
 #elif defined(_WIN32) || defined(_WIN64)
     os = "Windows";
+    user = getenv("USERS");
 #endif
 
   nob_sb_appendf(&sb, "#define __BUILD_BY__ \"%s\"\n", user);
   nob_sb_appendf(&sb, "#define __BUILD_OS__ \"%s\"\n", os);
 
-  nob_sb_appendf(&sb,"\n#endif // RASEN_BUILD_H\n");
+  nob_sb_appendf(&sb,"\n#endif // LIBUI_BUILD_H\n");
   fwrite(sb.items,1,sb.count,f);
 
   nob_da_free(sb);
