@@ -2,6 +2,7 @@
 
 #include <Application.h>
 #include <Window.h>
+#include <MenuBar.h>
 #include <Button.h>
 #include <CheckBox.h>
 #include <Slider.h>
@@ -19,6 +20,26 @@ int main(int argc, char** argv) {
     window->set_size(900, 600);
     window->set_title("Hello, from c++");
     // window->set_resizable(true);
+
+    auto menu_bar = MenuBar::construct(window);
+
+    auto file_btn = Button::construct(menu_bar);
+    file_btn->set_text("Edit");
+    file_btn->on_click([](auto event) {
+        PopupDialog::show("Menu Action", "You clicked the Edit button on the MenuBar!");
+    });
+
+    auto edit_btn = Button::construct(menu_bar);
+    edit_btn->set_text("Edit");
+    edit_btn->on_click([](auto event) {
+        PopupDialog::show("Menu Action", "You clicked the Edit button on the MenuBar!");
+    });
+
+    auto help_btn = Button::construct(menu_bar);
+    help_btn->set_text("Help");
+    help_btn->on_click([](auto event) {
+        PopupDialog::show("Menu Action", "You clicked the Help button on the MenuBar!");
+    });
 
     auto desktop = window->desktop();
     desktop->on_draw([](Rectangle desktop_rect) {
