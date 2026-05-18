@@ -114,7 +114,7 @@ I had the following targets:
 - [X] Label             - [<Label.h>](./include/Label.h)
 - [ ] ListView          - [<ListView.h>](./include/ListView.h)
 - [ ] Menu              - [<Menu.h>](./include/Menu.h)
-- [ ] MenuBar           - [<MenuBar.h>](./include/MenuBar.h)
+- [X] MenuBar           - [<MenuBar.h>](./include/MenuBar.h)
 - [ ] MenuItem          - [<MenuItem.h>](./include/MenuItem.h)
 - [X] MessageDialog     - [<MessageDialog.h>](./include/MessageDialog.h)
 - [X] Panel             - [<Panel.h>](./include/Panel.h)
