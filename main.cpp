@@ -3,6 +3,7 @@
 #include <Application.h>
 #include <Window.h>
 #include <MenuBar.h>
+#include <Menu.h>
 #include <Button.h>
 #include <CheckBox.h>
 #include <Slider.h>
@@ -22,8 +23,26 @@ int main(int argc, char** argv) {
     // window->set_resizable(true);
 
     auto menu_bar = MenuBar::construct(window);
+    
+    auto menu = Menu::construct(menu_bar);
 
     auto file_btn = Button::construct(menu_bar);
+    file_btn->set_text("File");
+
+    auto file_menu = Menu::construct(window);//:NOTE: Created it in the window because MenuBar will force it to draw horizontally
+    auto save_btn = Button::construct(file_menu);		 
+    save_btn->set_text("Save");
+
+    file_btn->on_click([&file_menu](Event<Button>& event) {
+      auto btn = event.trigger_widget();
+      Vector2 drop_pos = {
+	static_cast<float>(btn->x()),
+	static_cast<float>(btn->y() + btn->height())
+      };
+      file_menu->toggle(drop_pos);
+    });
+
+    /*
     file_btn->set_text("Edit");
     file_btn->on_click([](auto event) {
         PopupDialog::show("Menu Action", "You clicked the Edit button on the MenuBar!");
@@ -40,6 +59,7 @@ int main(int argc, char** argv) {
     help_btn->on_click([](auto event) {
         PopupDialog::show("Menu Action", "You clicked the Help button on the MenuBar!");
     });
+    */
 
     auto desktop = window->desktop();
     desktop->on_draw([](Rectangle desktop_rect) {

@@ -13,7 +13,7 @@ typedef struct {
 } StringList;
 
 
-#define SOURCE_FILE_COUNT 16 // Modify this when adding a new files to the list of files
+#define SOURCE_FILE_COUNT 17 // Modify this when adding a new files to the list of files
 
 bool to_files(const char*[SOURCE_FILE_COUNT], StringList*, const char*, const char*);
 bool build_object_files(const char*[SOURCE_FILE_COUNT], StringList, StringList*);
@@ -26,10 +26,9 @@ int main(int argc, char** argv) {
   const char* source_file_names[SOURCE_FILE_COUNT] = {
     "Application", "Button", "CheckBox", "ComboBox", "Container", "Desktop", "InputDialog",
     "Label","MessageDialog",  "Panel", "PopupDialog", "Slider", "Widget", "Window",
-    "tinyfiledialogs","MenuBar"
+    "tinyfiledialogs","MenuBar","Menu"
   };
-
-  nob_mkdir_if_not_exists("./build");
+nob_mkdir_if_not_exists("./build");
 
   if(!generate_build_h()){
     return 1;
