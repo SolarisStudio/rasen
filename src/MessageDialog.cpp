@@ -11,8 +11,8 @@ bool MessageDialog::show(
 }
 
 bool MessageDialog::show(
-      char* title,
-      char* message,
+     const char* title,
+     const char* message,
       MessageDialogButton btn,
       DialogIcon icon
     ) {

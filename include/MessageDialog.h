@@ -17,7 +17,7 @@ enum class MessageDialogButton {
 class MessageDialog {
 public:
     static bool show(std::string& title, std::string& message, MessageDialogButton btn = MessageDialogButton::OK, DialogIcon icon = DialogIcon::INFO);
-    static bool show(char* title, char* message, MessageDialogButton btn = MessageDialogButton::OK, DialogIcon icon = DialogIcon::INFO);
+    static bool show(const char* title, const char* message, MessageDialogButton btn = MessageDialogButton::OK, DialogIcon icon = DialogIcon::INFO);
 
 private:
     MessageDialog() = delete;

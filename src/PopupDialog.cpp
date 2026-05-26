@@ -5,7 +5,7 @@ void PopupDialog::show(std::string& title, std::string& message, DialogIcon icon
     PopupDialog::draw(title, message, icon);
 }
 
-void PopupDialog::show(char* title, char* message, DialogIcon icon) {
+void PopupDialog::show(const char* title, const char* message, DialogIcon icon) {
     auto m_title = std::string(title);
     auto m_message = std::string(message);
     PopupDialog::draw(m_title, m_message, icon);
