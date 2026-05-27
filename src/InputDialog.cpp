@@ -6,7 +6,7 @@ char* InputDialog::show(std::string& title, std::string& message, InputDialogTyp
     return InputDialog::draw(title, message, type);
 }
 
-char* InputDialog::show(char* title, char* message, InputDialogType type) {
+char* InputDialog::show(const char* title, const char* message, InputDialogType type) {
     auto m_title = std::string(title);
     auto m_message = std::string(message);
     return InputDialog::draw(m_title, m_message, type);

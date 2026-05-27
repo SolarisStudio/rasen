@@ -10,7 +10,7 @@ class InputDialog {
 public:
 
     static char* show(std::string& title, std::string& message, InputDialogType type = InputDialogType::TEXT);
-    static char* show(char* title, char* message, InputDialogType type = InputDialogType::TEXT);
+    static char* show(const char* title, const char* message, InputDialogType type = InputDialogType::TEXT);
 
 private:
     InputDialog() = delete;
