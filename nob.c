@@ -87,10 +87,10 @@ bool build_example(void) {
 
 #if defined(_WIN32) || defined (_WIN64)
   nob_cmd_append(&cmd,
-    "-lrasen", "-lraylib", "-lm", "-lwinmm",
+    "-llibUI", "-lraylib", "-lm", "-lwinmm",
     "-lgdi32", "-lopengl32", "-lole32", "-lcomdlg32");
 #else
-  nob_cmd_append(&cmd, "-lrasen", "-lraylib", "-lm", "-lGL", "-lpthread", "-ldl", "-lrt", "-lX11");
+  nob_cmd_append(&cmd, "-llibUI", "-lraylib", "-lm", "-lGL", "-lpthread", "-ldl", "-lrt", "-lX11");
 #endif
 
   nob_log(NOB_INFO, "Building example");
@@ -104,12 +104,12 @@ bool build_example(void) {
 }
 
 bool build_library(StringList object_files) {
-  const char* static_object_name = "build/librasen.a";
+  const char* static_object_name = "build/liblibUI.a";
 #if defined(WIN32)
-  const char* shared_object_name = "build/rasen.dll";
+  const char* shared_object_name = "build/libUI.dll";
   const char* shared_lib_name = ".DLL";
 #else
-  const char* shared_object_name = "build/rasen.so";
+  const char* shared_object_name = "build/libUI.so";
   const char* shared_lib_name = ".SO";
 #endif
 
