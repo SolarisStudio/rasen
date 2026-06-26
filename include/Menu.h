@@ -2,6 +2,7 @@
 #include <Event.h>
 #include <string>
 #include <memory>
+#include <UIConstants.h>
 
 class Menu : public Container {
   public: 
@@ -13,23 +14,21 @@ class Menu : public Container {
 
     WIDGET_CONSTRUCT(Menu);
     WIDGET_CONSTRUCT_PARENT(Menu);
+    WIDGET_ALLOWS_TEXT;
 
     std::string m_text;
     bool is_open(){ return m_is_open;};
-    void open(Vector2 pos){
-      m_is_open = true;
-      this->set_location(pos);
-    }
+    void open(){m_is_open = true;}
     void close(){ m_is_open = false;}
-    void toggle(Vector2 pos){
-      if(m_is_open) close(); 
-      else open(pos);
-    }
+    void toggle(){ m_is_open = !m_is_open;}
 
   protected:
 
   private: 
     unsigned int  m_max_height = 30;
     bool m_is_open = false;
+    bool is_hovered = false;
     unsigned int m_min_width = 120;
+
+    Rectangle m_dropdown_rect;
 };

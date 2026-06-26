@@ -27,7 +27,7 @@ void MenuBar::update(float dt) {
 }
 
 void MenuBar::draw() {
-  DrawRectangleRec(this->bounding_rect(), LIGHTGRAY);
+  DrawRectangleRec(this->bounding_rect(), PINK);
   DrawLine(0, m_bar_height, GetScreenWidth(), m_bar_height, LIGHTGRAY);
   for (Widget *child : children()) {
     child->draw();

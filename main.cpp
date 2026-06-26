@@ -4,6 +4,7 @@
 #include <Window.h>
 #include <MenuBar.h>
 #include <Menu.h>
+#include <MenuItem.h>
 #include <Button.h>
 #include <CheckBox.h>
 #include <Slider.h>
@@ -22,46 +23,7 @@ int main(int argc, char** argv) {
     window->set_title("Hello, from c++");
     // window->set_resizable(true);
 
-    auto menu_bar = MenuBar::construct(window);
-    
-    auto menu = Menu::construct(menu_bar);
-
-    auto file_btn = Button::construct(menu_bar);
-    file_btn->set_text("File");
-
-    auto file_menu = Menu::construct(window);//:NOTE: Created it in the window because MenuBar will force it to draw horizontally
-    auto save_btn = Button::construct(file_menu);		 
-    save_btn->set_text("Save");
-
-    file_btn->on_click([&file_menu](Event<Button>& event) {
-      auto btn = event.trigger_widget();
-      Vector2 drop_pos = {
-	static_cast<float>(btn->x()),
-	static_cast<float>(btn->y() + btn->height())
-      };
-      file_menu->toggle(drop_pos);
-    });
-
-    /*
-    file_btn->set_text("Edit");
-    file_btn->on_click([](auto event) {
-        PopupDialog::show("Menu Action", "You clicked the Edit button on the MenuBar!");
-    });
-
-    auto edit_btn = Button::construct(menu_bar);
-    edit_btn->set_text("Edit");
-    edit_btn->on_click([](auto event) {
-        PopupDialog::show("Menu Action", "You clicked the Edit button on the MenuBar!");
-    });
-
-    auto help_btn = Button::construct(menu_bar);
-    help_btn->set_text("Help");
-    help_btn->on_click([](auto event) {
-        PopupDialog::show("Menu Action", "You clicked the Help button on the MenuBar!");
-    });
-    */
-
-    auto desktop = window->desktop();
+   auto desktop = window->desktop();
     desktop->on_draw([](Rectangle desktop_rect) {
         auto x = desktop_rect.width / 2;
         auto y = desktop_rect.height / 2;
@@ -71,7 +33,7 @@ int main(int argc, char** argv) {
     auto panel = Panel::construct(window);
     panel->set_border(Border::OUTSET_BEVEL);
     panel->set_layout(Layout::VERTICAL);
-
+    // panel->set_location(20, 50);
 
     auto btn0 = Button::construct(panel);
     btn0->set_text("Click ME");
@@ -90,6 +52,38 @@ int main(int argc, char** argv) {
     auto check_box = CheckBox::construct(panel2);
     check_box->set_text("Ayo");
 
+    auto menu_bar  = MenuBar::construct(window);
+
+    auto file_menu = Menu::construct(menu_bar);
+    file_menu->set_text("File");
+
+    auto new_item  = MenuItem::construct(file_menu);
+    new_item->set_text("New File");
+    new_item->on_click([](auto event){
+	PopupDialog::show("File", "Creating a new file!", DialogIcon::INFO);
+    });
+
+    auto save_as_item = MenuItem::construct(file_menu);
+    save_as_item->set_text("Save As...");
+
+    auto exit_item = MenuItem::construct(file_menu);
+    exit_item->set_text("Exit");
+    exit_item->on_click([](auto event) {
+        PopupDialog::show("Exit", "Time to close the app!", DialogIcon::WARNING);
+    });
+
+    auto edit_menu = Menu::construct(menu_bar);
+    edit_menu->set_text("Edit");
+
+    auto help_menu = Menu::construct(menu_bar);
+    help_menu->set_text("Help");
+
+    auto about_item = MenuItem::construct(help_menu);
+    about_item->set_text("About");
+    about_item->on_click([](auto event) {
+        MessageDialog::show("About", "LibUI v1.0", MessageDialogButton::OK, DialogIcon::INFO);
+    });
+     
     int count = 0;
     auto combo_box = ComboBox::construct(panel2);
     combo_box->set_options({"A", "B", "C"});
