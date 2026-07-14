@@ -188,6 +188,12 @@ bool build_object_files(const char* names[SOURCE_FILE_COUNT], StringList source_
   Nob_Proc procs = {0};
 
   for (uint64_t i = 0; i < SOURCE_FILE_COUNT; ++i) {
+    //:NOTE: Check if the object file is already up to date with the source file
+    int needs_rebuild = nob_needs_rebuild1(object_files->items[i], source_files.items[i]);
+    if(needs_rebuild < 0) return false;
+
+    if(!needs_rebuild) continue;//Skip obj files that are already up to date with source files
+    
     Nob_Cmd cmd = {0};
     nob_cmd_append(&cmd, "g++");
 #if  !defined(_WIN32) || (_WIN64)
