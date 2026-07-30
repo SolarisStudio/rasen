@@ -110,7 +110,7 @@ I had the following targets:
 - [X] Desktop           - [<Desktop.h>](./include/Desktop.h)
 - [X] InputDialog       - [<InputDialog.h>](./include/InputDialog.h)
 - [ ] InputBox          - [<InputBox.h>](./include/InputBox.h)
-- [ ] ImageView         - [<ImageView.h>](./include/ImageView.h)
+- [X] ImageView         - [<ImageView.h>](./include/ImageView.h)
 - [X] Label             - [<Label.h>](./include/Label.h)
 - [ ] ListView          - [<ListView.h>](./include/ListView.h)
 - [X] Menu              - [<Menu.h>](./include/Menu.h)
